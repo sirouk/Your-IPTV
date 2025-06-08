@@ -1,21 +1,27 @@
 {
-  "name": "your-iptv-1",
-  "version": "1.0.0",
-  "description": "",
+  "name": "your-iptv-m3u-stremio-addon",
+  "version": "2.0.0",
+  "description": "Stremio addon for streaming M3U playlists",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "start:landing": "node server.js",
     "setup": "node setup-env.js",
+    "test:streams": "node test-streams.js",
     "postinstall": "node setup-env.js"
   },
-  "keywords": [],
+  "keywords": [
+    "stremio",
+    "addon",
+    "m3u",
+    "iptv"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.4.7",
-    "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "node-cache": "^5.1.2"
+    "stremio-addon-sdk": "^1.6.10"
   }
 }

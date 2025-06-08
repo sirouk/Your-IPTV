@@ -222,11 +222,12 @@
    </div>
 
    <script type="text/javascript">
-      // Set the manifest URL
-      const manifestURL = window.location.protocol + '//' + window.location.host + '/manifest.json';
+      // Set the manifest URL (addon runs on port 3649)
+      const addonHost = window.location.hostname + ':3649';
+      const manifestURL = window.location.protocol + '//' + addonHost + '/manifest.json';
 
       // Set the install link
-      document.getElementById('installLink').href = 'stremio://' + window.location.host + '/manifest.json';
+      document.getElementById('installLink').href = 'stremio://' + addonHost + '/manifest.json';
       document.getElementById('manifestURL').value = manifestURL;
 
       function copyURL() {
