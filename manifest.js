@@ -1,13 +1,13 @@
-module.exports={
-    id: "org.community.YourIPTV",
-    version: "1.1.1",
-    name: "Your IPTV",
+module.exports = {
+    id: "org.community.YourIPTVM3U",
+    version: "2.0.0",
+    name: "Your IPTV M3U",
     logo: "https://dl.strem.io/addon-logo.png",
-    description: "This addon brings all the Live Streams, VOD streams and Series from your IPTV subscription to your Stremio using Xtream API.",
-    types: ["movie", "series","tv","channel"],
+    description: "This addon brings Live TV channels from an M3U playlist to your Stremio.",
+    types: ["tv"],
     background: "https://dl.strem.io/addon-background.jpg",
-    resources: ["movie","series","tv"],
+    resources: ["catalog", "stream"],
     catalogs: [],
-    idPrefixes: ["yiptv:"],
-    behaviorHints:{configurable : true, configurationRequired: true },
+    idPrefixes: ["yiptvM3U:"],
+    behaviorHints: { configurable: false }
 };

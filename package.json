@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "setup": "node setup-env.js",
+    "postinstall": "node setup-env.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "node-cache": "^5.1.2"
