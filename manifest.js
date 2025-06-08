@@ -9,5 +9,8 @@ module.exports = {
     resources: ["catalog", "stream"],
     catalogs: [],
     idPrefixes: ["yiptvM3U:"],
-    behaviorHints: { configurable: false }
+    behaviorHints: {
+        configurable: false,
+        adult: false
+    }
 };

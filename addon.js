@@ -124,13 +124,55 @@ async function getStream(type, id) {
 
         if (!channel) return [];
 
-        return [{
+        // Provide multiple stream options with different configurations
+        const streams = [
+            {
+                name: "Primary Stream",
+                title: channel.name,
+                url: channel.url,
+                behaviorHints: {
+                    notWebReady: true,
+                    proxyHeaders: {
+                        request: {
+                            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                            "Accept": "*/*",
+                            "Accept-Language": "en-US,en;q=0.9",
+                            "Accept-Encoding": "gzip, deflate",
+                            "Connection": "keep-alive",
+                            "Referer": "https://tv123.me/"
+                        }
+                    }
+                }
+            }
+        ];
+
+        // Add alternative stream format if URL ends with specific extensions
+        if (channel.url.includes('.ts') || channel.url.includes('/ts/')) {
+            streams.push({
+                name: "MPEG-TS Stream",
+                title: channel.name + " (TS)",
+                url: channel.url,
+                type: "tv",
+                isLive: true,
+                behaviorHints: {
+                    notWebReady: true,
+                    bingeGroup: "tv-" + streamId
+                }
+            });
+        }
+
+        // Add a basic stream option
+        streams.push({
+            name: "Direct",
+            title: channel.name + " (Direct)",
             url: channel.url,
-            title: channel.name,
             behaviorHints: {
                 notWebReady: true
             }
-        }];
+        });
+
+        console.log(`Returning ${streams.length} streams for channel: ${channel.name}`);
+        return streams;
     } catch (error) {
         console.error('Error getting stream:', error);
         return [];
