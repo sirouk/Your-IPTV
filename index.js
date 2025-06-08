@@ -18,7 +18,11 @@ app.engine('html', require('ejs').renderFile);
 app.set('views', __dirname);
 
 app.get("/", function (req, res) {
-  res.redirect("/manifest.json");
+  res.redirect("/configure");
+});
+
+app.get("/configure", function (req, res) {
+  res.render('configure.html');
 });
 
 app.get('/manifest.json', async function (req, res) {
