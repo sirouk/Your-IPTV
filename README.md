@@ -71,6 +71,73 @@ http://localhost:3650
 2. Visit `http://localhost:3650`
 3. Click the "Install to Stremio" button
 
+## Production Deployment
+
+### Automatic Setup with SSL
+
+We provide an installation script that sets up nginx with SSL using Let's Encrypt DNS challenges:
+
+1. **Run the installation script on your server:**
+   ```bash
+   sudo ./install-nginx-ssl.sh
+   ```
+
+   The script will:
+   - Install nginx-full and certbot
+   - Set up DNS challenge for your domain
+   - Configure nginx as a reverse proxy
+   - Create systemd service for the addon
+   - Set up automatic SSL renewal
+
+2. **Deploy your addon files:**
+   ```bash
+   ./deploy-to-server.sh iptv.yourdomain.com
+   ```
+
+3. **On the server, complete setup:**
+   ```bash
+   # Edit the M3U URL
+   sudo nano /opt/iptv-addon/.env
+   
+   # Start the service
+   sudo systemctl start iptv-addon
+   sudo systemctl enable iptv-addon
+   
+   # Check status
+   sudo systemctl status iptv-addon
+   ```
+
+### Manual Deployment
+
+If you prefer manual setup:
+
+1. **Install dependencies on server:**
+   ```bash
+   sudo apt update
+   sudo apt install nginx certbot python3-certbot-nginx nodejs npm
+   ```
+
+2. **Copy addon files to `/opt/iptv-addon/`**
+
+3. **Set up nginx configuration** (see `install-nginx-ssl.sh` for example)
+
+4. **Create systemd service** for auto-start
+
+### SSL Certificate Options
+
+The install script supports multiple DNS providers:
+- Cloudflare (recommended)
+- AWS Route53
+- DigitalOcean
+- Google Cloud DNS
+- Manual DNS verification
+
+### Accessing Your Addon
+
+Once deployed, your addon will be available at:
+- `https://iptv.yourdomain.com/manifest.json` (standard HTTPS)
+- `https://iptv.yourdomain.com:3031/manifest.json` (alternative port)
+
 ## Environment Variables
 
 - `M3U_URL` - The URL of the M3U playlist to parse (required)
@@ -82,6 +149,9 @@ http://localhost:3650
 - `npm start` - Start the addon server
 - `npm run start:landing` - Start the landing page server
 - `npm run setup` - Create/update the .env file
+- `npm run test:streams` - Test stream availability
+- `./install-nginx-ssl.sh` - Set up nginx with SSL (run on server)
+- `./deploy-to-server.sh` - Deploy addon to server
 
 ## Architecture
 
@@ -105,11 +175,17 @@ This addon follows Stremio SDK best practices:
 - Check if streams work in VLC player
 - Some streams may require specific regions/VPN
 - Check the console for error messages
+- Run `npm run test:streams` to diagnose issues
 
 ### No channels showing
 - Verify the M3U playlist format is correct
 - Check if the M3U URL returns valid data
 - Look for parsing errors in the console
+
+### SSL Certificate Issues
+- Ensure your domain DNS is properly configured
+- Check that port 80 is open for Let's Encrypt verification
+- Verify DNS TXT records are propagated (for DNS challenge)
 
 ## Development
 

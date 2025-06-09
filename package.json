@@ -8,6 +8,8 @@
     "start:landing": "node server.js",
     "setup": "node setup-env.js",
     "test:streams": "node test-streams.js",
+    "test:detailed": "node test-stream-detailed.js",
+    "test:public": "node test-public-m3u.js",
     "postinstall": "node setup-env.js"
   },
   "keywords": [
